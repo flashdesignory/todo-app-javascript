@@ -1,4 +1,6 @@
 import { TodoItem } from "./todo-item.js";
+import { TodoControls } from "./todo-controls.js";
+import { TodoFilters } from "./todo-filters.js";
 import { useApi } from "./use-api.js";
 import { useRouter } from "./use-router.js";
 
@@ -8,12 +10,6 @@ export const TodoApp = ({ ref, data = [] }) => {
 
   // refs
   const list = ref.querySelector(".todo-list-ul");
-  const form = ref.querySelector(".todo-form");
-  const toggle = ref.querySelector("#todo-toggle-element");
-  const filters = ref.querySelector(".todo-filters");
-  const status = ref.querySelector(".todo-status");
-  const clear = ref.querySelector(".todo-clear-button");
-  const filterButtons = [...ref.querySelectorAll(".todo-navigation > li > a")];
 
   // handlers
   const handleToggle = (id) => {
@@ -39,6 +35,15 @@ export const TodoApp = ({ ref, data = [] }) => {
     updateView();
   };
 
+  const handleReset = () => {
+    reset();
+    list.replaceChildren();
+    updateView();
+  };
+
+  const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAdd });
+  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onReset: handleReset });
+
   // helpers
   const createItem = (todo) =>
     TodoItem({
@@ -52,31 +57,8 @@ export const TodoApp = ({ ref, data = [] }) => {
     const todos = getTodos();
     const route = getRoute();
 
-    // hide toggle and filters, if there are no todos
-    if (todos.length <= 0) {
-      toggle.checked = false;
-      toggle.parentElement.classList.add("hidden");
-
-      filters.classList.add("hidden");
-      status.textContent = "";
-      return;
-    }
-
-    // show toggle and update toggle state
-    const visibleTodos = todos.filter((todo) => {
-      if (route === "active") return !todo.completed;
-      if (route === "completed") return todo.completed;
-      return todo;
-    });
-    toggle.checked = visibleTodos.length > 0 && visibleTodos.every((todo) => todo.completed);
-    toggle.parentElement.classList.remove("hidden");
-
-    // show filters
-    filters.classList.remove("hidden");
-
-    // update status text
-    const activeTodos = todos.filter((todo) => !todo.completed);
-    status.textContent = `${activeTodos.length} ${activeTodos.length === 1 ? "item" : "items"} left!`;
+    if (updateControls) updateControls();
+    if (updateFilters) updateFilters();
 
     // update todos to show (depending on filter)
     todos.forEach((todo) => {
@@ -96,56 +78,10 @@ export const TodoApp = ({ ref, data = [] }) => {
     });
   };
 
-  const updateFilter = () => {
-    const name = getRoute();
-    filterButtons.forEach((button) => {
-      const filterName = button.href.split("/").slice(-1)[0];
-      filterName === name ? button.classList.add("selected") : button.classList.remove("selected");
-    });
-
-    updateView();
-  };
-
-  // input form
-  const handleSubmit = (e) => {
-    const value = e.target.elements["todo-input-element"].value;
-    e.preventDefault();
-
-    if (value === undefined || value.length < 2) return;
-
-    handleAdd(value);
-
-    e.target.reset();
-  };
-
-  // controls
-  const handleChange = (e) => {
-    const completed = e.target.checked;
-
-    getTodos().map((todo) => {
-      if (todo.completed !== completed) {
-        ref.querySelector(`#toggle-${todo.id}`).click();
-      }
-    });
-    updateView();
-  };
-
-  // filters
-  const handleClick = () => {
-    reset();
-    list.replaceChildren();
-    updateView();
-  };
-
-  // add listeners
-  form.addEventListener("submit", handleSubmit);
-  toggle.addEventListener("change", handleChange);
-  clear.addEventListener("click", handleClick);
-
   // render initial todos
   const todos = getTodos();
   todos.map((todo) => list.append(createItem(todo)));
 
   // initialize router
-  initRouter(updateFilter);
+  initRouter(updateView);
 };

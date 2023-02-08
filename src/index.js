@@ -13,4 +13,4 @@ import { TodoApp } from "./todo/todo-app.js";
   },
 ]; */
 
-TodoApp({ ref: document.querySelector("#root") /* data */ });
+TodoApp({ ref: document.querySelector("#root") /* ,data */ });

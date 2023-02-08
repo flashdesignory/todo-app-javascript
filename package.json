@@ -7,12 +7,12 @@
     "npm": ">=8.19.3"
   },
   "scripts": {
-    "dev": "http-server ./ -p 7000 -c-1 --cors -o",
+    "dev": "http-server ./ -p 9000 -c-1 --cors -o",
     "lint:js": "eslint ./ --fix",
     "lint:css": "stylelint \"**/*.css\" --fix",
     "pretty:check": "prettier ./ --check",
     "pretty:write": "prettier ./ --write",
-    "format": "npm run pretty:write ; npm run lint:js : npm run lint:css"
+    "format": "npm run pretty:write ; npm run lint:js ; npm run lint:css"
   },
   "author": "",
   "license": "ISC",
