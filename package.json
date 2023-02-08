@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "parcel ./index.html --open",
-    "build": "parcel build ./index.html -d docs --public-url /",
+    "build": "parcel build ./index.html -d docs --public-url /todo-app-javascript/",
     "lint:js": "eslint ./ --fix",
     "lint:css": "stylelint \"**/*.css\" --fix",
     "pretty:check": "prettier ./ --check",
