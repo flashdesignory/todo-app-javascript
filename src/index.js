@@ -1,6 +1,6 @@
 import { TodoApp } from "./todo/todo-app.js";
 
-const data = [
+/* const data = [
   {
     id: "6a3e2475-dd95-4125-9ca3-614e451169eb",
     task: "Wash Car",
@@ -11,6 +11,6 @@ const data = [
     task: "Do Dishes",
     completed: true,
   },
-];
+]; */
 
 TodoApp({ ref: document.querySelector("#root") /* data */ });

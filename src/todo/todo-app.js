@@ -62,10 +62,19 @@ export const TodoApp = ({ ref, data = [] }) => {
       return;
     }
 
-    // show toggle and filters if there are todos
+    // show toggle and update toggle state
+    const visibleTodos = todos.filter((todo) => {
+      if (route === "active") return !todo.completed;
+      if (route === "completed") return todo.completed;
+      return todo;
+    });
+    toggle.checked = visibleTodos.length > 0 && visibleTodos.every((todo) => todo.completed);
     toggle.parentElement.classList.remove("hidden");
+
+    // show filters
     filters.classList.remove("hidden");
 
+    // update status text
     const activeTodos = todos.filter((todo) => !todo.completed);
     status.textContent = `${activeTodos.length} ${activeTodos.length === 1 ? "item" : "items"} left!`;
 
