@@ -5,10 +5,12 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onReset }) => {
   const clear = ref.querySelector(".todo-clear-button");
   const filterButtons = [...ref.querySelectorAll(".todo-navigation > li > a")];
 
+  // handlers
   const handleClick = () => {
     onReset();
   };
 
+  // methods
   const update = () => {
     const todos = getTodos();
     const route = getRoute();

@@ -25,6 +25,7 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
     });
   };
 
+  // methods
   const update = () => {
     const todos = getTodos();
     const route = getRoute();

@@ -19,6 +19,7 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
     onDelete(id);
   };
 
+  // methods
   const createItem = (todo) =>
     TodoItem({
       todo,
