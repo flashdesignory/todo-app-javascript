@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="A Todo App" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Todo App</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/todo/todo.css" />
+    <script type="module" src="./src/index.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div class="todo-app">
+        <header class="todo-header">
+          <h1 class="todo-title">todos</h1>
+        </header>
+        <main class="todo-main">
+          <div class="todo-controls">
+            <div class="todo-toggle-container hidden">
+              <input id="todo-toggle-element" type="checkbox" tabindex="0" />
+              <label class="visually-hidden" for="todo-toggle-element">Mark all as complete.</label>
+            </div>
+            <form class="todo-form">
+              <div class="todo-input-container">
+                <label class="visually-hidden" for="todo-input-element">Todo Input</label>
+                <input id="todo-input-element" class="todo-input" type="text" placeholder="What needs to be done?" autofocus autocomplete="off" />
+              </div>
+            </form>
+          </div>
+          <div class="todo-list">
+            <ul class="todo-list-ul" title="todos"></ul>
+          </div>
+          <div class="todo-filters hidden">
+            <div class="todo-status"></div>
+            <ul class="todo-navigation">
+              <li><a href="#/" class="">All</a></li>
+              <li><a href="#/active" class="">Active</a></li>
+              <li><a href="#/completed" class="">Completed</a></li>
+            </ul>
+            <button class="todo-clear-button">Clear Completed</button>
+          </div>
+        </main>
+        <footer class="todo-footer">
+          <p>
+            <b>Mouse Navigation:</b><br />
+            Double-click to edit a todo.<br /><br />
+            <b>Keyboard Navigation:</b><br />
+            Use 'tab' & 'tab + shift' to focus elements.<br />
+            Use 'space' to toggle and 'enter' to submit.<br />
+          </p>
+          <p></p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
