@@ -13,4 +13,4 @@ const data = [
   },
 ];
 
-TodoApp({ ref: document.querySelector("#root"), /* data */ });
+TodoApp({ ref: document.querySelector("#root") /* data */ });
