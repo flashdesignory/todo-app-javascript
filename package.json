@@ -1,8 +1,11 @@
 {
   "name": "todo-app-javascript",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple todo app.",
+  "engines": {
+    "node": ">=18.13.0",
+    "npm": ">=8.19.3"
+  },
   "scripts": {
     "dev": "parcel ./index.html --open",
     "build": "parcel build ./index.html",
