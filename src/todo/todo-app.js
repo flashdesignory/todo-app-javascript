@@ -6,6 +6,7 @@ export const TodoApp = ({ ref, data = [] }) => {
   const { getTodos, addItem, updateItem, removeItem, toggleItem, reset } = useApi(data);
   const { initRouter, getRoute } = useRouter();
 
+  // refs
   const list = ref.querySelector(".todo-list-ul");
   const form = ref.querySelector(".todo-form");
   const toggle = ref.querySelector("#todo-toggle-element");

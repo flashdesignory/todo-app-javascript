@@ -1,6 +1,7 @@
 import { useDoubleClick } from "./use-doubleclick.js";
 
 export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
+  // item setup
   const item = document.createElement("li");
   item.classList.add("todo-list-li");
   item.role = "listitem";
