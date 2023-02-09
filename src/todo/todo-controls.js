@@ -6,7 +6,6 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
   // handlers
   const handleSubmit = (e) => {
     const value = e.target.elements["todo-input-element"].value.trim();
-    console.log("value", value);
     e.preventDefault();
 
     if (value === undefined || value.length < 2) return;
@@ -44,6 +43,8 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
       if (route === "completed") return todo.completed;
       return todo;
     });
+    
+    toggle.disabled = visibleTodos.length === 0;
     toggle.checked = visibleTodos.length > 0 && visibleTodos.every((todo) => todo.completed);
     toggle.parentElement.classList.remove("hidden");
   };
