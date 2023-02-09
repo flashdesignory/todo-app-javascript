@@ -5,7 +5,8 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
 
   // handlers
   const handleSubmit = (e) => {
-    const value = e.target.elements["todo-input-element"].value;
+    const value = e.target.elements["todo-input-element"].value.trim();
+    console.log("value", value);
     e.preventDefault();
 
     if (value === undefined || value.length < 2) return;

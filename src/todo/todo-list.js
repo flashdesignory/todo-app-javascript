@@ -55,11 +55,8 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
   };
 
   const clear = () => {
-    const listElements = [...ref.querySelectorAll(".todo-list-li")];
-    listElements.forEach((element) => {
-      const completed = document.getElementById(`toggle-${element.id}`).checked;
-      if (completed) element.remove();
-    });
+    const elementsToRemove = [...ref.querySelectorAll('[data-completed="true"]')];
+    elementsToRemove.forEach((element) => element.remove());
   };
 
   const add = (todo) => {

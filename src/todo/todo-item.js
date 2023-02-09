@@ -6,6 +6,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   item.classList.add("todo-list-li");
   item.role = "listitem";
   item.id = `${todo.id}`;
+  item.dataset.completed = todo.completed;
 
   const content = document.createElement("div");
   content.classList.add("todo-item");
@@ -56,6 +57,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
 
   // handlers
   const handleChange = () => {
+    item.dataset.completed = toggleInput.checked;
     if (onToggle) onToggle(todo.id);
   };
 
