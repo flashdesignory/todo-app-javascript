@@ -1,4 +1,4 @@
-export const TodoFilters = ({ ref, getTodos, getRoute, onReset }) => {
+export const TodoFilters = ({ ref, getTodos, getRoute, onClear }) => {
   // refs
   const filters = ref.querySelector(".todo-filters");
   const status = ref.querySelector(".todo-status");
@@ -7,7 +7,7 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onReset }) => {
 
   // handlers
   const handleClick = () => {
-    onReset();
+    onClear();
   };
 
   // methods

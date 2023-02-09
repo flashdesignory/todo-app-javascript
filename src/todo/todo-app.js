@@ -5,7 +5,7 @@ import { useApi } from "./use-api.js";
 import { useRouter } from "./use-router.js";
 
 export const TodoApp = ({ ref, data = [] }) => {
-  const { getTodos, addItem, updateItem, removeItem, toggleItem, reset } = useApi(data);
+  const { getTodos, addItem, updateItem, removeItem, toggleItem, clear } = useApi(data);
   const { initRouter, getRoute } = useRouter();
 
   // handlers
@@ -29,17 +29,17 @@ export const TodoApp = ({ ref, data = [] }) => {
     updateView();
   };
 
-  const handleReset = () => {
-    reset();
-    resetList();
+  const handleClear = () => {
+    clear();
+    clearList();
     updateView();
   };
 
   const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAdd });
-  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onReset: handleReset });
+  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClear: handleClear });
   const {
     update: updateList,
-    reset: resetList,
+    clear: clearList,
     add: addToList,
   } = TodoList({ ref, getTodos, getRoute, onToggle: handleToggle, onUpdate: handleUpdate, onDelete: handleDelete });
 

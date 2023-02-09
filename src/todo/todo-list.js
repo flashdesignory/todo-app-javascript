@@ -54,6 +54,14 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
     list.replaceChildren();
   };
 
+  const clear = () => {
+    const listElements = [...ref.querySelectorAll(".todo-list-li")];
+    listElements.forEach((element) => {
+      const completed = document.getElementById(`toggle-${element.id}`).checked;
+      if (completed) element.remove();
+    });
+  };
+
   const add = (todo) => {
     list.prepend(createItem(todo));
   };
@@ -62,5 +70,5 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
   const todos = getTodos();
   todos.map((todo) => list.append(createItem(todo)));
 
-  return { update, reset, add };
+  return { update, reset, clear, add };
 };

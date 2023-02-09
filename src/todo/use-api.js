@@ -103,10 +103,17 @@ export const useApi = (initialTodos = []) => {
   };
 
   /**
-   * Clears local state.
+   * Resets local state.
    */
   const reset = () => {
     todos = [];
+  };
+
+  /**
+   * Clears completed items.
+   */
+  const clear = () => {
+    todos = todos.filter((item) => !item.completed);
   };
 
   /**
@@ -117,5 +124,5 @@ export const useApi = (initialTodos = []) => {
     return [...todos];
   };
 
-  return { addItem, updateItem, removeItem, toggleItem, reset, getTodos };
+  return { addItem, updateItem, removeItem, toggleItem, reset, clear, getTodos };
 };
