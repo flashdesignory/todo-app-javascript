@@ -43,7 +43,7 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
       if (route === "completed") return todo.completed;
       return todo;
     });
-    
+
     toggle.disabled = visibleTodos.length === 0;
     toggle.checked = visibleTodos.length > 0 && visibleTodos.every((todo) => todo.completed);
     toggle.parentElement.classList.remove("hidden");

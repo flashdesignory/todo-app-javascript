@@ -281,11 +281,13 @@
   align-items: center;
   width: 100%;
   min-height: 50px;
-  padding: 6px 15px;
+  padding: 10px 15px;
+  gap: 10px;
 }
 
 .todo-status {
   display: flex;
+  padding: 10px;
 }
 
 .todo-navigation {
@@ -296,8 +298,13 @@
   gap: 12px;
 }
 
+.todo-navigation li {
+  display: flex;
+}
+
 .todo-navigation a,
 .todo-clear-button {
+  padding: 10px;
   transition: var(--transition-default);
   border-bottom: 1px solid var(--color-utility-transparent);
 }
@@ -323,5 +330,6 @@
 @media (min-width: 481px) {
   .todo-filters {
     flex-direction: row;
+    gap: 0;
   }
 }
