@@ -1,11 +1,13 @@
 import { TodoControls } from "./todo-controls.js";
 import { TodoList } from "./todo-list.js";
 import { TodoFilters } from "./todo-filters.js";
+import { useCache } from "./use-cache.js";
 import { useApi } from "./use-api.js";
 import { useRouter } from "./use-router.js";
 
 export const TodoApp = ({ ref, data = [] }) => {
-  const { getTodos, addItem, updateItem, removeItem, toggleItem, clear } = useApi(data);
+  const storage = useCache("todos");
+  const { getTodos, addItem, updateItem, removeItem, toggleItem, removeCompletedItems } = useApi(storage, data);
   const { initRouter, getRoute } = useRouter();
 
   // handlers
@@ -29,17 +31,17 @@ export const TodoApp = ({ ref, data = [] }) => {
     updateView();
   };
 
-  const handleClear = () => {
-    clear();
-    clearList();
+  const handleRemoveCompleted = () => {
+    removeCompletedItems();
+    removeFromList('[data-completed="true"]');
     updateView();
   };
 
   const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAdd });
-  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClear: handleClear });
+  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClick: handleRemoveCompleted });
   const {
     update: updateList,
-    clear: clearList,
+    remove: removeFromList,
     add: addToList,
   } = TodoList({ ref, getTodos, getRoute, onToggle: handleToggle, onUpdate: handleUpdate, onDelete: handleDelete });
 

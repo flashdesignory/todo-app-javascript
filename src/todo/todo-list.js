@@ -54,8 +54,8 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
     list.replaceChildren();
   };
 
-  const clear = () => {
-    const elementsToRemove = [...ref.querySelectorAll('[data-completed="true"]')];
+  const remove = (filter) => {
+    const elementsToRemove = [...ref.querySelectorAll(filter)];
     elementsToRemove.forEach((element) => element.remove());
   };
 
@@ -67,5 +67,5 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
   const todos = getTodos();
   todos.map((todo) => list.append(createItem(todo)));
 
-  return { update, reset, clear, add };
+  return { update, reset, remove, add };
 };

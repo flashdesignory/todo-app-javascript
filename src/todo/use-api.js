@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Todo, Partial } from "./types.js";
+import { Todo, Partial, Storage } from "./types.js";
 
 /**
  * Function that returns a unique string.
@@ -36,11 +36,13 @@ const update = (item, { task, completed }) => ({
 /**
  * Model of the api.
  *
- * @param {Array.<Todo>} initialTodos
+ * @param {Storage} storage
+ * @param {Array<Todo>} initialTodos
  * @returns Methods to interact with the model.
  */
-export const useApi = (initialTodos = []) => {
-  let todos = [...initialTodos];
+export const useApi = (storage, initialTodos = []) => {
+  // assign initial todos, if passed in
+  initialTodos.forEach((todo) => storage.setValue(todo.id, todo));
 
   /**
    * Create a new todo and add to state.
@@ -50,7 +52,7 @@ export const useApi = (initialTodos = []) => {
    */
   const addItem = (task) => {
     const todo = create(task);
-    todos = [todo, ...todos];
+    storage.setValue(todo.id, todo);
     return todo;
   };
 
@@ -59,18 +61,14 @@ export const useApi = (initialTodos = []) => {
    *
    * @param {string} id
    * @param {string} task
-   * @returns {Todo} A Todo item.
+   * @returns {Todo | undefined} A Todo item.
    */
   const updateItem = (id, task) => {
-    let todo;
-    todos = todos.map((item) => {
-      if (item.id === id) {
-        todo = update(item, { task });
-        return todo;
-      }
-      return item;
-    });
+    let todo = storage.getValue(id);
+    if (!todo) return;
 
+    todo = update(todo, { task });
+    storage.setValue(todo.id, todo);
     return todo;
   };
 
@@ -78,42 +76,42 @@ export const useApi = (initialTodos = []) => {
    * Remove a Todo from local state.
    *
    * @param {string} id
+   * @returns {Todo | undefined} A Todo item.
    */
   const removeItem = (id) => {
-    todos = todos.filter((item) => item.id !== id);
+    const todo = storage.deleteValue(id);
+    return todo;
   };
 
   /**
    * Togles a Todo's complete flag.
    *
    * @param {string} id
-   * @returns {Todo} A Todo item.
+   * @returns {Todo | undefined} A Todo item.
    */
   const toggleItem = (id) => {
-    let todo;
-    todos = todos.map((item) => {
-      if (item.id === id) {
-        todo = update(item, { completed: !item.completed });
-        return todo;
-      }
-      return item;
-    });
+    let todo = storage.getValue(id);
+    if (!todo) return;
 
+    todo = update(todo, { completed: !todo.completed });
+    storage.setValue(todo.id, todo);
     return todo;
   };
 
   /**
-   * Resets local state.
+   * Removes all items.
    */
-  const reset = () => {
-    todos = [];
+  const removeAllItems = () => {
+    storage.removeAllValues();
   };
 
   /**
-   * Clears completed items.
+   * Removes all completed items.
    */
-  const clear = () => {
-    todos = todos.filter((item) => !item.completed);
+  const removeCompletedItems = () => {
+    getTodos().forEach((todo) => {
+      if (todo.completed) storage.deleteValue(todo.id);
+    });
   };
 
   /**
@@ -121,8 +119,8 @@ export const useApi = (initialTodos = []) => {
    * @returns {Array.<Todo>} A copy of the state.
    */
   const getTodos = () => {
-    return [...todos];
+    return [...storage.getAllValues()];
   };
 
-  return { addItem, updateItem, removeItem, toggleItem, reset, clear, getTodos };
+  return { addItem, updateItem, removeItem, toggleItem, removeAllItems, removeCompletedItems, getTodos };
 };
