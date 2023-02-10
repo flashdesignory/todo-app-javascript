@@ -1,16 +1,22 @@
+import { useSanitizer } from "./use-sanitizer.js";
+
 export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
+  const { sanitize } = useSanitizer();
   // refs
   const form = ref.querySelector(".todo-form");
   const toggle = ref.querySelector("#todo-toggle-element");
 
   // handlers
   const handleSubmit = (e) => {
+    // trim whitespaces
     const value = e.target.elements["todo-input-element"].value.trim();
     e.preventDefault();
 
+    // enforce 2 chars min
     if (value === undefined || value.length < 2) return;
 
-    onSubmit(value);
+    // sanitize input and submit
+    onSubmit(sanitize(value));
 
     e.target.reset();
   };
