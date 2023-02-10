@@ -1,7 +1,9 @@
 import { useSanitizer } from "./use-sanitizer.js";
+import { useValidators } from "./use-validators.js";
 
 export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
   const { sanitize } = useSanitizer();
+  const { hasValidMin } = useValidators();
   // refs
   const form = ref.querySelector(".todo-form");
   const toggle = ref.querySelector("#todo-toggle-element");
@@ -13,7 +15,7 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
     e.preventDefault();
 
     // enforce 2 chars min
-    if (value === undefined || value.length < 2) return;
+    if (!hasValidMin(value, 2)) return;
 
     // sanitize input and submit
     onSubmit(sanitize(value));
