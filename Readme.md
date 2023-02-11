@@ -8,7 +8,7 @@ Similarely, applying filters will toggle `display:none;` or `display:flex` of th
 
 ## State Management
 
-This application uses an in-memory array data structure for the todos.
+This application uses an in-memory object data structure for the todos.
 No persistent storage has been added.
 
 ## Keyboard Navigation

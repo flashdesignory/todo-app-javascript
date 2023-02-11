@@ -1,21 +1,26 @@
 // eslint-disable-next-line no-unused-vars
 import { SetValue, DeleteValue, GetValue, GetAllValues, RemoveAllValues } from "./types.js";
 
-export const useArrayStorage = () => {
-  let storage = [];
+const storage = [];
+const defaultNameSpace = "default";
+
+export const useArrayStorage = (namespace = defaultNameSpace) => {
+  if (!storage[namespace]) {
+    storage[namespace] = [];
+  }
 
   /**
    * @type {SetValue}
    */
   const setValue = (key, value) => {
-    const index = storage.findIndex((item) => item.id === key);
+    const index = storage[namespace].findIndex((item) => item.id === key);
 
     if (index >= 0) {
-      storage[index] = value;
+      storage[namespace][index] = value;
       return value;
     }
 
-    storage = [value, ...storage];
+    storage[namespace] = [value, ...storage[namespace]];
     return value;
   };
 
@@ -24,7 +29,7 @@ export const useArrayStorage = () => {
    */
   const deleteValue = (key) => {
     let value;
-    storage = storage.filter((item) => {
+    storage[namespace] = storage[namespace].filter((item) => {
       if (item.id === key) value = item;
       return item.id !== key;
     });
@@ -35,7 +40,7 @@ export const useArrayStorage = () => {
    * @type {GetValue}
    */
   const getValue = (key) => {
-    const value = storage.find((item) => item.id === key);
+    const value = storage[namespace].find((item) => item.id === key);
     return value;
   };
 
@@ -43,18 +48,18 @@ export const useArrayStorage = () => {
    * @type {GetAllValues}
    */
   const getAllValues = () => {
-    return [...storage];
+    return [...storage[namespace]];
   };
 
   /**
    * @type {RemoveAllValues}
    */
   const removeAllValues = () => {
-    storage = [];
+    storage[namespace] = [];
   };
 
   const toString = () => {
-    return [...storage];
+    return [...storage[namespace]];
   };
 
   return {
