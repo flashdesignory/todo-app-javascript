@@ -5,9 +5,7 @@ export const useArrayStorage = () => {
   let storage = [];
 
   /**
-   * Adds a value to cache.
-   *
-   * @typedef {SetValue}
+   * @type {SetValue}
    */
   const setValue = (key, value) => {
     const index = storage.findIndex((item) => item.id === key);
@@ -22,9 +20,7 @@ export const useArrayStorage = () => {
   };
 
   /**
-   * Deletes a value in cache.
-   *
-   * @typedef {DeleteValue}
+   * @type {DeleteValue}
    */
   const deleteValue = (key) => {
     let value;
@@ -36,9 +32,7 @@ export const useArrayStorage = () => {
   };
 
   /**
-   * Gets a value if found in cache.
-   *
-   * @typedef {GetValue}
+   * @type {GetValue}
    */
   const getValue = (key) => {
     const value = storage.find((item) => item.id === key);
@@ -46,18 +40,14 @@ export const useArrayStorage = () => {
   };
 
   /**
-   * Gets all values from cache.
-   *
-   * @typedef {GetAllValues}
+   * @type {GetAllValues}
    */
   const getAllValues = () => {
     return [...storage];
   };
 
   /**
-   * Remove all values from cache.
-   *
-   * @typedef {RemoveAllValues}
+   * @type {RemoveAllValues}
    */
   const removeAllValues = () => {
     storage = [];

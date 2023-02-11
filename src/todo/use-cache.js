@@ -20,9 +20,7 @@ export const useCache = (namespace = defaultNameSpace) => {
   }
 
   /**
-   * Adds a value to cache.
-   *
-   * @typedef {SetValue}
+   * @type {SetValue}
    */
   const setValue = (key, value, timeout) => {
     const expiresAt = timeout ? Date.now() + timeout : null;
@@ -31,9 +29,7 @@ export const useCache = (namespace = defaultNameSpace) => {
   };
 
   /**
-   * Deletes a value in cache.
-   *
-   * @typedef {DeleteValue}
+   * @type {DeleteValue}
    */
   const deleteValue = (key) => {
     const value = cache[namespace][key];
@@ -45,9 +41,7 @@ export const useCache = (namespace = defaultNameSpace) => {
   };
 
   /**
-   * Gets a value if found in cache.
-   *
-   * @typedef {GetValue}
+   * @type {GetValue}
    */
   const getValue = (key) => {
     const { value, expiresAt } = cache[namespace][key] || {};
@@ -60,9 +54,7 @@ export const useCache = (namespace = defaultNameSpace) => {
   };
 
   /**
-   * Gets all values from cache.
-   *
-   * @typedef {GetAllValues}
+   * @type {GetAllValues}
    */
   const getAllValues = () => {
     const entries = Object.values(cache[namespace]);
@@ -73,9 +65,7 @@ export const useCache = (namespace = defaultNameSpace) => {
   };
 
   /**
-   * Remove all values from cache.
-   *
-   * @typedef {RemoveAllValues}
+   * @type {RemoveAllValues}
    */
   const removeAllValues = () => {
     Object.keys(cache[namespace]).forEach((key) => delete cache[namespace][key]);
