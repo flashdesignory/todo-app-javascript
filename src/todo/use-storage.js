@@ -4,17 +4,15 @@ import { SetValue, DeleteValue, GetValue, GetAllValues, RemoveAllValues } from "
 const cache = {};
 const defaultNameSpace = "default";
 
-const expired = (expiresAt) => expiresAt && expiresAt < Date.now();
-
 /**
- * useCache
+ * useStorage
  * This hook implements an in-memory cache that supports expiration of key/value pairs.
  * The namespace param creates a unique namespaces.
  *
  * @param {string} namespace
- * @returns Methods to interact with useCache.
+ * @returns Methods to interact with useStorage.
  */
-export const useCache = (namespace = defaultNameSpace) => {
+export const useStorage = (namespace = defaultNameSpace) => {
   if (!cache[namespace]) {
     cache[namespace] = {};
   }
@@ -22,9 +20,8 @@ export const useCache = (namespace = defaultNameSpace) => {
   /**
    * @type {SetValue}
    */
-  const setValue = (key, value, timeout) => {
-    const expiresAt = timeout ? Date.now() + timeout : null;
-    cache[namespace][key] = { value, expiresAt };
+  const setValue = (key, value) => {
+    cache[namespace][key] = value;
     return value;
   };
 
@@ -44,12 +41,7 @@ export const useCache = (namespace = defaultNameSpace) => {
    * @type {GetValue}
    */
   const getValue = (key) => {
-    const { value, expiresAt } = cache[namespace][key] || {};
-    if (expired(expiresAt)) {
-      deleteValue(key);
-      return undefined;
-    }
-
+    const value = cache[namespace][key] || {};
     return value;
   };
 
@@ -57,10 +49,7 @@ export const useCache = (namespace = defaultNameSpace) => {
    * @type {GetAllValues}
    */
   const getAllValues = () => {
-    const entries = Object.values(cache[namespace]);
-    if (!entries) return undefined;
-
-    const values = entries.map((entry) => entry.value);
+    const values = Object.values(cache[namespace]);
     return values;
   };
 
@@ -69,29 +58,6 @@ export const useCache = (namespace = defaultNameSpace) => {
    */
   const removeAllValues = () => {
     Object.keys(cache[namespace]).forEach((key) => delete cache[namespace][key]);
-  };
-
-  /**
-   * Checks if an entry has an expiration.
-   *
-   * Null values represent no expiration.
-   * Zero (0) represents an expired entry.
-   *
-   * @param {string} key
-   * @returns Evaluated expiration
-   */
-  const timeTillExpiration = (key) => {
-    const { expiresAt } = cache[namespace][key] || {};
-
-    if (!expiresAt) {
-      return null;
-    }
-
-    if (expired(expiresAt)) {
-      return 0;
-    }
-
-    return expiresAt - Date.now();
   };
 
   const toString = () => {
@@ -104,7 +70,6 @@ export const useCache = (namespace = defaultNameSpace) => {
     getValue,
     getAllValues,
     removeAllValues,
-    timeTillExpiration,
     toString,
   };
 };

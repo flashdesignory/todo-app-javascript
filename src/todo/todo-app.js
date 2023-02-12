@@ -1,12 +1,12 @@
 import { TodoControls } from "./todo-controls.js";
 import { TodoList } from "./todo-list.js";
 import { TodoFilters } from "./todo-filters.js";
-import { useCache } from "./use-cache.js";
+import { useStorage } from "./use-storage.js";
 import { useApi } from "./use-api.js";
 import { useRouter } from "./use-router.js";
 
 export const TodoApp = ({ ref, data = [] }) => {
-  const storage = useCache("todos");
+  const storage = useStorage("todos");
   const { getTodos, addItem, updateItem, removeItem, toggleItem, removeCompletedItems } = useApi(storage, data);
   const { initRouter, getRoute } = useRouter();
 
