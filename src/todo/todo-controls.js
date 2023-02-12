@@ -38,7 +38,7 @@ export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
     const todos = getTodos();
     const route = getRoute();
 
-    // hide toggle and filters, if there are no todos
+    // hide toggle if there are no todos
     if (todos.length <= 0) {
       toggle.checked = false;
       toggle.parentElement.classList.add("hidden");

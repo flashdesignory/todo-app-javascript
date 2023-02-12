@@ -1,8 +1,8 @@
 export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
   // refs
   const filters = ref.querySelector(".todo-filters");
-  const status = ref.querySelector(".todo-status");
-  const clear = ref.querySelector(".todo-clear-button");
+  const statusDisplay = ref.querySelector(".todo-status");
+  const clearButton = ref.querySelector(".todo-clear-button");
   const filterButtons = [...ref.querySelectorAll(".todo-navigation > li > a")];
 
   // handlers
@@ -15,10 +15,10 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
     const todos = getTodos();
     const route = getRoute();
 
-    // hide toggle and filters, if there are no todos
+    // hide filters if there are no todos
     if (todos.length <= 0) {
       filters.classList.add("hidden");
-      status.textContent = "";
+      statusDisplay.textContent = "";
       return;
     }
 
@@ -32,11 +32,11 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
 
     // update status text
     const activeTodos = todos.filter((todo) => !todo.completed);
-    status.textContent = `${activeTodos.length} ${activeTodos.length === 1 ? "item" : "items"} left!`;
+    statusDisplay.textContent = `${activeTodos.length} ${activeTodos.length === 1 ? "item" : "items"} left!`;
   };
 
   // add listeners
-  clear.addEventListener("click", handleClick);
+  clearButton.addEventListener("click", handleClick);
 
   return { update };
 };

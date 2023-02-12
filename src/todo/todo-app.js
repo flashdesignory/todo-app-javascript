@@ -11,46 +11,47 @@ export const TodoApp = ({ ref, data = [] }) => {
   const { initRouter, getRoute } = useRouter();
 
   // handlers
-  const handleToggle = (id) => {
+  const handleAddItem = (task) => {
+    const todo = addItem(task);
+    addToList(todo);
+    update();
+  };
+
+  const handleToggleItem = (id) => {
     toggleItem(id);
-    updateView();
+    update();
   };
 
-  const handleUpdate = (id, task) => {
+  const handleUpdateItem = (id, task) => {
     updateItem(id, task);
-    updateView();
+    update();
   };
 
-  const handleDelete = (id) => {
+  const handleDeleteItem = (id) => {
     removeItem(id);
-    updateView();
+    update();
   };
 
-  const handleAdd = (task) => {
-    addToList(addItem(task));
-    updateView();
-  };
-
-  const handleRemoveCompleted = () => {
+  const handleRemoveCompletedItems = () => {
     removeCompletedItems();
     removeFromList('[data-completed="true"]');
-    updateView();
+    update();
   };
 
-  const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAdd });
-  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClick: handleRemoveCompleted });
+  const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAddItem });
+  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClick: handleRemoveCompletedItems });
   const {
     update: updateList,
     remove: removeFromList,
     add: addToList,
-  } = TodoList({ ref, getTodos, getRoute, onToggle: handleToggle, onUpdate: handleUpdate, onDelete: handleDelete });
+  } = TodoList({ ref, getTodos, getRoute, onToggle: handleToggleItem, onUpdate: handleUpdateItem, onDelete: handleDeleteItem });
 
-  const updateView = () => {
+  const update = () => {
     updateControls();
     updateFilters();
     updateList();
   };
 
   // initialize router
-  initRouter(updateView);
+  initRouter(update);
 };
