@@ -1,5 +1,7 @@
 # Todo App
 
+[![pages-build-deployment](https://github.com/flashdesignory/todo-app-javascript/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/flashdesignory/todo-app-javascript/actions/workflows/pages/pages-build-deployment)
+
 ## Preview
 
 https://flashdesignory.github.io/todo-app-javascript/
