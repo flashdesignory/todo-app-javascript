@@ -2,39 +2,32 @@ import { expect } from "chai";
 import { useValidators } from "./use-validators.js";
 
 describe("useValidators", function () {
-  const { 
-    hasValidName, 
-    hasValidEmail, 
-    hasValidMin,
-    hasValidMax,
-    hasValidRange,
-    hasValidRequired
-  } = useValidators();
+  const { hasValidName, hasValidEmail, hasValidMin, hasValidMax, hasValidRange, hasValidRequired } = useValidators();
 
-  describe("hasValidName", function() {
-    it("should pass with valid input", function() {
+  describe("hasValidName", function () {
+    it("should pass with valid input", function () {
       expect(hasValidName("test")).to.be.true;
     });
 
-    it("should fail with invalid input", function() {
+    it("should fail with invalid input", function () {
       expect(hasValidName("*$(")).to.be.false;
     });
   });
 
-  describe("hasValidEmail", function() {
-    it("should pass with valid input", function() {
+  describe("hasValidEmail", function () {
+    it("should pass with valid input", function () {
       expect(hasValidEmail("test@test.com")).to.be.true;
     });
 
-    it("should fail with invalid input", function() {
+    it("should fail with invalid input", function () {
       expect(hasValidEmail("@test.com")).to.be.false;
     });
 
-    it("should fail with invalid input", function() {
+    it("should fail with invalid input", function () {
       expect(hasValidEmail("test.com")).to.be.false;
     });
 
-    it("should fail with invalid input", function() {
+    it("should fail with invalid input", function () {
       expect(hasValidEmail("test@")).to.be.false;
     });
   });
