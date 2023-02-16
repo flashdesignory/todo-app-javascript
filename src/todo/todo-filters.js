@@ -33,6 +33,9 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
     // update status text
     const activeTodos = todos.filter((todo) => !todo.completed);
     statusDisplay.textContent = `${activeTodos.length} ${activeTodos.length === 1 ? "item" : "items"} left!`;
+
+    // update clearButton
+    clearButton.disabled = activeTodos.length === todos.length;
   };
 
   // add listeners
