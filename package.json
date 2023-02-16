@@ -6,19 +6,23 @@
     "node": ">=18.13.0",
     "npm": ">=8.19.3"
   },
+  "type": "module",
   "scripts": {
     "dev": "http-server ./ -p 9000 -c-1 --cors -o",
     "lint:js": "eslint ./ --fix",
     "lint:css": "stylelint \"**/*.css\" --fix",
     "pretty:check": "prettier ./ --check",
     "pretty:write": "prettier ./ --write",
-    "format": "npm run pretty:write ; npm run lint:js ; npm run lint:css"
+    "format": "npm run pretty:write ; npm run lint:js ; npm run lint:css",
+    "test": "mocha './src/**/*.test.js'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
+    "mocha": "^10.2.0",
     "prettier": "2.8.3",
     "stylelint": "^14.16.1",
     "stylelint-config-prettier": "^9.0.4",
