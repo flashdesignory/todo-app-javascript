@@ -222,6 +222,10 @@
   background-color: inherit;
 }
 
+[data-completed="true"] input {
+  text-decoration: line-through;
+}
+
 .todo-item-toggle input::before {
   content: "";
   width: 8px;
