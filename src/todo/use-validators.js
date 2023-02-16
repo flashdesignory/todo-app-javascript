@@ -7,7 +7,7 @@ export const useValidators = () => {
   const EMAIL_REGEXP =
     /* eslint-disable-next-line no-useless-escape */
     /^(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))$/;
-  const ALPHA_NUMBERIC_REGEXP = /^[ L-Np{}]+$/;
+  const ALPHA_NUMBERIC_REGEXP = /^[a-zA-Z0-9]+$/;
 
   /**
    * Checks for valid alpha-numeric input.
