@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Todo, Partial, Storage } from "./types.js";
+import { Todo, Partial, Storage } from "../types/types.js";
 
 /**
  * Function that returns a unique string.

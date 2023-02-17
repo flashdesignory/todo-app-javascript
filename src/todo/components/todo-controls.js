@@ -1,5 +1,5 @@
-import { useSanitizer } from "./use-sanitizer.js";
-import { useValidators } from "./use-validators.js";
+import { useSanitizer } from "../hooks/use-sanitizer.js";
+import { useValidators } from "../hooks/use-validators.js";
 
 export const TodoControls = ({ ref, getTodos, getRoute, onSubmit }) => {
   const { sanitize } = useSanitizer();

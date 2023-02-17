@@ -1,4 +1,4 @@
-import { useDoubleClick } from "./use-doubleclick.js";
+import { useDoubleClick } from "../hooks/use-doubleclick.js";
 
 export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   // item setup

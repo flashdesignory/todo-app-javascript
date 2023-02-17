@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { SetValue, DeleteValue, GetValue, GetAllValues, RemoveAllValues } from "./types.js";
+import { SetValue, DeleteValue, GetValue, GetAllValues, RemoveAllValues } from "../types/types.js";
 
 const cache = {};
 const defaultNameSpace = "default";

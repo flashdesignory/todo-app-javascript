@@ -1,9 +1,9 @@
-import { TodoControls } from "./todo-controls.js";
-import { TodoList } from "./todo-list.js";
-import { TodoFilters } from "./todo-filters.js";
-import { useStorage } from "./use-storage.js";
-import { useApi } from "./use-api.js";
-import { useRouter } from "./use-router.js";
+import { TodoControls } from "./components/todo-controls.js";
+import { TodoList } from "./components/todo-list.js";
+import { TodoFilters } from "./components/todo-filters.js";
+import { useStorage } from "./hooks/use-storage.js";
+import { useApi } from "./hooks/use-api.js";
+import { useRouter } from "./hooks/use-router.js";
 
 export const TodoApp = ({ ref, data = [] }) => {
   const storage = useStorage("todos");
