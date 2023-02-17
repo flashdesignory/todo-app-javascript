@@ -16,8 +16,8 @@
     "format": "npm run pretty:write ; npm run lint:js ; npm run lint:css",
     "test": "mocha './src/**/*.test.js'"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Thorsten Kober",
+  "license": "SEE LICENSE IN License",
   "devDependencies": {
     "chai": "^4.3.7",
     "eslint": "^8.33.0",
