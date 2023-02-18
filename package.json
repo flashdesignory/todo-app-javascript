@@ -14,7 +14,7 @@
     "pretty:check": "prettier ./ --check",
     "pretty:write": "prettier ./ --write",
     "format": "npm run pretty:write ; npm run lint:js ; npm run lint:css",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "author": "Thorsten Kober",
   "license": "SEE LICENSE IN License",

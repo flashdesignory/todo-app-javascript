@@ -1,5 +1,5 @@
 import { TodoControls } from "./todo-controls";
-import { completedTodos } from "../test/data.js";
+import { completedTodos, emptyTodos } from "../test/data.js";
 import { controlsFragment } from "../test/fragments.js";
 
 describe("TodoControls", () => {
@@ -8,10 +8,41 @@ describe("TodoControls", () => {
   const onSubmit = jest.fn();
 
   beforeEach(() => {
+    jest.resetAllMocks();
     document.body.innerHTML = controlsFragment;
   });
 
   it("should render", () => {
+    const ref = document.querySelector(".todo-controls");
+
+    getRoute.mockReturnValueOnce("");
+    getTodos.mockReturnValueOnce([...emptyTodos]);
+
+    TodoControls({ ref, getTodos, getRoute, onSubmit });
+
+    const form = document.querySelector(".todo-form");
+    const toggle = document.querySelector("#todo-toggle-element");
+    expect(form).toBeTruthy();
+    expect(toggle).toBeTruthy();
+  });
+
+  it("should submit input text", () => {
+    const ref = document.querySelector(".todo-controls");
+
+    getRoute.mockReturnValueOnce("");
+    getTodos.mockReturnValueOnce([...emptyTodos]);
+
+    TodoControls({ ref, getTodos, getRoute, onSubmit });
+
+    const form = document.querySelector(".todo-form");
+    const input = document.querySelector("#todo-input-element");
+    input.value = "foo";
+    form.submit();
+
+    expect(onSubmit).toHaveBeenCalledWith("foo");
+  });
+
+  it("should update toggle button", () => {
     const ref = document.querySelector(".todo-controls");
 
     getRoute.mockReturnValueOnce("");
@@ -32,12 +63,7 @@ describe("TodoControls", () => {
 
     expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
     expect(toggle.checked).toBeTruthy();
-
-    const form = document.querySelector(".todo-form");
-    const input = document.querySelector("#todo-input-element");
-    input.value = "foo";
-    form.submit();
-
-    expect(onSubmit).toHaveBeenCalledWith("foo");
   });
+
+  
 });
