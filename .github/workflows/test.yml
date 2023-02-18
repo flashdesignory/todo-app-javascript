@@ -1,4 +1,5 @@
 name: Test Checks
+run-name: Test Checks
 
 on:
   push:
