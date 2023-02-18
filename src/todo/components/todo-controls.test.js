@@ -64,6 +64,4 @@ describe("TodoControls", () => {
     expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
     expect(toggle.checked).toBeTruthy();
   });
-
-  
 });
