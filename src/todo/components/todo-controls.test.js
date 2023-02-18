@@ -23,15 +23,22 @@ describe("TodoControls", function() {
             {
                 id: "6a3e2475-dd95-4125-9ca3-614e451169eb",
                 task: "Wash Car",
-                completed: false,
+                completed: true,
               }
         ];
         const onSubmit = () => {};
 
         const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
-        const toggle = document.querySelector(".todo-toggle-container");
-        expect(toggle.classList.contains("hidden")).toBeTruthy();
+
+        const toggleContainer = document.querySelector(".todo-toggle-container");
+        const toggle = document.querySelector("#todo-toggle-element");
+
+        expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
+        expect(toggle.checked).toBeFalsy();
+
         update();
-        expect(toggle.classList.contains("hidden")).toBeFalsy();
+        
+        expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
+        expect(toggle.checked).toBeTruthy();
     });
 });
