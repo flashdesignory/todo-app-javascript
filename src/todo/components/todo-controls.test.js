@@ -26,7 +26,7 @@ describe("TodoControls", function () {
         completed: true,
       },
     ];
-    const onSubmit = () => {};
+    const onSubmit = (value) => {console.log("value", value)};
 
     const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
 
@@ -40,5 +40,11 @@ describe("TodoControls", function () {
 
     expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
     expect(toggle.checked).toBeTruthy();
+
+    /* const form = document.querySelector(".todo-form");
+    const input = document.querySelector("#todo-input-element");
+    input.value = "foo";
+    form.submit(); */
+    
   });
 });
