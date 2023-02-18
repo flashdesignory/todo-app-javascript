@@ -18,12 +18,20 @@ describe("TodoControls", function() {
 
     it("should render", function() {
         const ref = document.querySelector(".todo-controls");
-        const getRoute = () => [];
-        const getTodos = () => "";
+        const getRoute = () => "";
+        const getTodos = () => [
+            {
+                id: "6a3e2475-dd95-4125-9ca3-614e451169eb",
+                task: "Wash Car",
+                completed: false,
+              }
+        ];
         const onSubmit = () => {};
 
         const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
-        expect(document.querySelector(".todo-form")).not.toBeNull();
+        const toggle = document.querySelector(".todo-toggle-container");
+        expect(toggle.classList.contains("hidden")).toBeTruthy();
         update();
+        expect(toggle.classList.contains("hidden")).toBeFalsy();
     });
 });
