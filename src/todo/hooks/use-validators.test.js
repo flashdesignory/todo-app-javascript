@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { useValidators } from "./use-validators.js";
 
 describe("useValidators", function () {
@@ -6,81 +5,81 @@ describe("useValidators", function () {
 
   describe("hasValidName", function () {
     it("should pass with valid input", function () {
-      expect(hasValidName("test")).to.be.true;
+      expect(hasValidName("test")).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidName("*$(")).to.be.false;
+      expect(hasValidName("*$(")).toBeFalsy();
     });
   });
 
   describe("hasValidEmail", function () {
     it("should pass with valid input", function () {
-      expect(hasValidEmail("test@test.com")).to.be.true;
+      expect(hasValidEmail("test@test.com")).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidEmail("@test.com")).to.be.false;
+      expect(hasValidEmail("@test.com")).toBeFalsy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidEmail("test.com")).to.be.false;
+      expect(hasValidEmail("test.com")).toBeFalsy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidEmail("test@")).to.be.false;
+      expect(hasValidEmail("test@")).toBeFalsy();
     });
   });
 
   describe("hasValidMin", function () {
     it("should pass with valid input", function () {
-      expect(hasValidMin("hello", 2)).to.be.true;
+      expect(hasValidMin("hello", 2)).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidMin("hi", 4)).to.be.false;
+      expect(hasValidMin("hi", 4)).toBeFalsy();
     });
   });
 
   describe("hasValidMax", function () {
     it("should pass with valid input", function () {
-      expect(hasValidMax("hello", 10)).to.be.true;
+      expect(hasValidMax("hello", 10)).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidMax("hello", 4)).to.be.false;
+      expect(hasValidMax("hello", 4)).toBeFalsy();
     });
   });
 
   describe("hasValidRange", function () {
     it("should pass with valid input", function () {
-      expect(hasValidRange("hello", 2, 10)).to.be.true;
+      expect(hasValidRange("hello", 2, 10)).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidRange("hi", 4, 10)).to.be.false;
+      expect(hasValidRange("hi", 4, 10)).toBeFalsy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidRange("hello", 2, 4)).to.be.false;
+      expect(hasValidRange("hello", 2, 4)).toBeFalsy();
     });
   });
 
   describe("hasValidRequired", function () {
     it("should pass with valid input", function () {
-      expect(hasValidRequired(true)).to.be.true;
+      expect(hasValidRequired(true)).toBeTruthy();
     });
 
     it("should pass with valid input", function () {
-      expect(hasValidRequired("test")).to.be.true;
+      expect(hasValidRequired("test")).toBeTruthy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidRequired(false)).to.be.false;
+      expect(hasValidRequired(false)).toBeFalsy();
     });
 
     it("should fail with invalid input", function () {
-      expect(hasValidRequired("")).to.be.false;
+      expect(hasValidRequired("")).toBeFalsy();
     });
   });
 });
