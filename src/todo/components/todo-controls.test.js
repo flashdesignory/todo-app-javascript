@@ -2,10 +2,10 @@ import { TodoControls } from "./todo-controls";
 import { completedTodos } from "../test/data.js";
 import { controlsFragment } from "../test/fragments.js";
 
-describe("TodoControls", () =>  {
-    const getRoute = jest.fn();
-    const getTodos = jest.fn();
-    const onSubmit = jest.fn();
+describe("TodoControls", () => {
+  const getRoute = jest.fn();
+  const getTodos = jest.fn();
+  const onSubmit = jest.fn();
 
   beforeEach(() => {
     document.body.innerHTML = controlsFragment;
@@ -16,12 +16,6 @@ describe("TodoControls", () =>  {
 
     getRoute.mockReturnValueOnce("");
     getTodos.mockReturnValueOnce([...completedTodos]);
-    /* 
-    const getRoute = () => "";
-    const getTodos = () => [...completedTodos];
-    const onSubmit = (value) => {
-      console.log("value", value);
-    }; */
 
     const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
 
@@ -43,7 +37,7 @@ describe("TodoControls", () =>  {
     const input = document.querySelector("#todo-input-element");
     input.value = "foo";
     form.submit();
-    
+
     expect(onSubmit).toHaveBeenCalledWith("foo");
   });
 });
