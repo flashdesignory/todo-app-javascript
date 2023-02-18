@@ -1,0 +1,22 @@
+name: Test Checks
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  tests:
+    name: Unit Tests
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.13.0
+      - name: Install
+        run: npm install
+      - name: Run test
+        run: npm run test
