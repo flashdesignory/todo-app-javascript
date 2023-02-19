@@ -102,7 +102,9 @@ export const createListItemFragment = (todo) => `
 `;
 
 export const createBodyFragment = (todos) => `
+<main class="todo-main">
     ${controlsFragment}
     ${createListFragment(todos)}
     ${filtersFragment}
+</main>
 `;
