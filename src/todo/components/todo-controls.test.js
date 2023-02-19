@@ -103,11 +103,12 @@ describe("TodoControls", () => {
     const toggle = document.querySelector("#todo-toggle-element");
 
     update();
-
     expect(toggle.checked).toBeFalsy();
 
     toggle.click();
-
     expect(toggle.checked).toBeTruthy();
+
+    toggle.click();
+    expect(toggle.checked).toBeFalsy();
   });
 });
