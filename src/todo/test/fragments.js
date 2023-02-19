@@ -100,3 +100,9 @@ export const createListItemFragment = (todo) => `
     </div>
 </li>
 `;
+
+export const createBodyFragment = (todos) => `
+    ${controlsFragment}
+    ${createListFragment(todos)}
+    ${filtersFragment}
+`;

@@ -1,6 +1,6 @@
 import { TodoControls } from "./todo-controls";
 import { completedTodos, emptyTodos } from "../test/data.js";
-import { controlsFragment } from "../test/fragments.js";
+import { createBodyFragment } from "../test/fragments.js";
 
 describe("TodoControls", () => {
   const getRoute = jest.fn();
@@ -9,7 +9,7 @@ describe("TodoControls", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    document.body.innerHTML = controlsFragment;
+    document.body.innerHTML = createBodyFragment([]);
   });
 
   it("should render", () => {
