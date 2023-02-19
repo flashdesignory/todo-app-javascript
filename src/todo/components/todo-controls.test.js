@@ -42,7 +42,7 @@ describe("TodoControls", () => {
     expect(onSubmit).toHaveBeenCalledWith("foo");
   });
 
-  it("should update toggle button", () => {
+  it("should update toggle button after update", () => {
     const ref = document.querySelector(".todo-controls");
 
     getRoute.mockReturnValueOnce("");
