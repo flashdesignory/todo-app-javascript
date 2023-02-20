@@ -1,5 +1,5 @@
 import { TodoList } from "./todo-list.js";
-import { emptyTodos } from "../test/data.js";
+import { emptyTodos, mixedTodos } from "../test/data.js";
 import { createBodyFragment } from "../test/fragments.js";
 
 describe("TodoList", () => {
@@ -24,5 +24,23 @@ describe("TodoList", () => {
 
     const list = ref.querySelector(".todo-list-ul");
     expect(list).toBeTruthy();
+  });
+
+  it("should render initial todos", () => {
+    // render empty todo list
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("");
+    // return todos
+    getTodos.mockReturnValue([...mixedTodos]);
+
+    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    const list = ref.querySelector(".todo-list-ul");
+    expect(list).toBeTruthy();
+
+    const elements = ref.querySelectorAll(".todo-list-li");
+    expect(elements.length).toEqual(3);
   });
 });
