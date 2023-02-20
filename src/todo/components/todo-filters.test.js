@@ -49,11 +49,11 @@ describe("TodoFilters", () => {
   });
 
   it("should update display with one todo", () => {
-    document.body.innerHTML = createBodyFragment([...oneTodo]);
+    document.body.innerHTML = createBodyFragment([{ ...oneTodo }]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("");
-    getTodos.mockReturnValue([...oneTodo]);
+    getTodos.mockReturnValue([{ ...oneTodo }]);
 
     const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
 

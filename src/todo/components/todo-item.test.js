@@ -17,7 +17,7 @@ describe("TodoItem", () => {
   });
 
   it("should return an item", async () => {
-    const todo = oneTodo[0];
+    const todo = { ...oneTodo };
     const item = TodoItem({ todo, onToggle, onUpdate, onDelete });
     document.body.append(item);
     expect(item).toBeTruthy();
