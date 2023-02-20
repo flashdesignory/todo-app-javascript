@@ -28,7 +28,7 @@ describe("TodoItem", () => {
     toggleInput.click();
     expect(onToggle).toHaveBeenCalledTimes(1);
 
-    // input
+    // input mouse
     const taskInput = item.querySelector(`#task-${todo.id}`);
     expect(taskInput).toBeTruthy();
     expect(taskInput.readOnly).toBeTruthy();
@@ -40,6 +40,15 @@ describe("TodoItem", () => {
     taskInput.textContent = "Clean Car";
     taskInput.blur();
     expect(onUpdate).toHaveBeenCalledWith(todo.id, "Clean Car");
+    expect(taskInput.readOnly).toBeTruthy();
+
+    // input keyboard
+    taskInput.focus();
+    taskInput.dispatchEvent(new KeyboardEvent("keyup", { key: " " }));
+    expect(taskInput.readOnly).toBeFalsy();
+    taskInput.textContent = "Clean Bus";
+    taskInput.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }));
+    expect(onUpdate).toHaveBeenCalledWith(todo.id, "Clean Bus");
     expect(taskInput.readOnly).toBeTruthy();
 
     // delete
