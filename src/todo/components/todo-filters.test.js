@@ -1,5 +1,5 @@
 import { TodoFilters } from "./todo-filters.js";
-import { emptyTodos, mixedTodos, completedTodos, notCompletedTodos } from "../test/data.js";
+import { emptyTodos, mixedTodos, completedTodos, notCompletedTodos, oneTodo } from "../test/data.js";
 import { createBodyFragment } from "../test/fragments.js";
 
 describe("TodoFilters", () => {
@@ -46,6 +46,22 @@ describe("TodoFilters", () => {
     const clearButton = ref.querySelector(".todo-clear-button");
     clearButton.click();
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("should update display with one todo", () => {
+    document.body.innerHTML = createBodyFragment([...oneTodo]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("");
+    getTodos.mockReturnValue([...oneTodo]);
+
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+
+    update();
+
+    // check display
+    const statusDisplay = ref.querySelector(".todo-status");
+    expect(statusDisplay.textContent).toEqual("1 item left!");
   });
 
   it("should update display with mixed todos", () => {
