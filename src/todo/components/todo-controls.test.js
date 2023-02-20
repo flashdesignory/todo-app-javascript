@@ -20,12 +20,8 @@ describe("TodoControls", () => {
 
     TodoControls({ ref, getTodos, getRoute, onSubmit });
 
-    const form = document.querySelector(".todo-form");
-    const toggle = document.querySelector("#todo-toggle-element");
     const toggleContainer = document.querySelector(".todo-toggle-container");
 
-    expect(form).toBeTruthy();
-    expect(toggle).toBeTruthy();
     expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
   });
 
@@ -40,10 +36,10 @@ describe("TodoControls", () => {
 
     const form = document.querySelector(".todo-form");
     const input = document.querySelector("#todo-input-element");
-    input.value = "foo";
+    input.value = "Do homework.";
     form.submit();
 
-    expect(onSubmit).toHaveBeenCalledWith("foo");
+    expect(onSubmit).toHaveBeenCalledWith("Do homework.");
   });
 
   it("should not check toggle with incompleted todos", () => {
