@@ -1,6 +1,7 @@
 import { TodoList } from "./todo-list.js";
 import { emptyTodos, mixedTodos, newTodo } from "../test/data.js";
 import { createBodyFragment } from "../test/fragments.js";
+import { editTodoWithClick } from "../test/snippets.js";
 
 describe("TodoList", () => {
   const getRoute = jest.fn();
@@ -11,10 +12,6 @@ describe("TodoList", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
   });
 
   it("should render initial state", () => {
@@ -174,8 +171,6 @@ describe("TodoList", () => {
   });
 
   it("should call onUpdate", () => {
-    jest.useFakeTimers();
-
     document.body.innerHTML = createBodyFragment([...emptyTodos]);
     const ref = document.querySelector(".todo-main");
 
@@ -184,12 +179,7 @@ describe("TodoList", () => {
     TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
 
     const taskInput = document.querySelector(`#task-${mixedTodos[0].id}`);
-    taskInput.click();
-    jest.advanceTimersByTime(50);
-    taskInput.click();
-    jest.advanceTimersByTime(50);
-    taskInput.textContent = "Clean Car";
-    taskInput.blur();
+    editTodoWithClick(taskInput, "Clean Car");
     expect(onUpdate).toHaveBeenCalledWith(mixedTodos[0].id, "Clean Car");
   });
 });
