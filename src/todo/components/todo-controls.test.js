@@ -15,13 +15,9 @@ describe("TodoControls", () => {
     document.body.innerHTML = createBodyFragment([...emptyTodos]);
     const ref = document.querySelector(".todo-main");
 
-    getRoute.mockReturnValue("");
-    getTodos.mockReturnValue([...emptyTodos]);
-
     TodoControls({ ref, getTodos, getRoute, onSubmit });
 
     const toggleContainer = document.querySelector(".todo-toggle-container");
-
     expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
   });
 
@@ -36,9 +32,15 @@ describe("TodoControls", () => {
 
     const form = document.querySelector(".todo-form");
     const input = document.querySelector("#todo-input-element");
+
+    // don't call it with only one letter
+    input.value = "h";
+    form.submit();
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    // call it with at least two letters
     input.value = "Do homework.";
     form.submit();
-
     expect(onSubmit).toHaveBeenCalledWith("Do homework.");
   });
 

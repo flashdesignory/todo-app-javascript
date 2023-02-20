@@ -23,9 +23,9 @@ export const filtersFragment = `
 <div class="todo-filters hidden">
     <div class="todo-status"></div>
     <ul class="todo-navigation">
-        <li><a href="#/" class="">All</a></li>
-        <li><a href="#/active" class="">Active</a></li>
-        <li><a href="#/completed" class="">Completed</a></li>
+        <li><a href="#/" class="" id="todo-navigation-all">All</a></li>
+        <li><a href="#/active" class="" id="todo-navigation-active">Active</a></li>
+        <li><a href="#/completed" class="" id="todo-navigation-completed">Completed</a></li>
     </ul>
     <button class="todo-clear-button" disabled>Clear Completed</button>
 </div>
@@ -56,9 +56,9 @@ export const bodyFragment = `
         <div class="todo-filters hidden">
         <div class="todo-status"></div>
         <ul class="todo-navigation">
-            <li><a href="#/" class="">All</a></li>
-            <li><a href="#/active" class="">Active</a></li>
-            <li><a href="#/completed" class="">Completed</a></li>
+            <li><a href="#/" class="" id="todo-navigation-all">All</a></li>
+            <li><a href="#/active" class="" id="todo-navigation-active">Active</a></li>
+            <li><a href="#/completed" class="" id="todo-navigation-completed">Completed</a></li>
         </ul>
         <button class="todo-clear-button" disabled>Clear Completed</button>
         </div>
