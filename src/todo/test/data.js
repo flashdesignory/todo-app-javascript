@@ -1,12 +1,16 @@
 export const emptyTodos = [];
 
-export const oneTodo = [
-  {
-    id: "6a3e2475-dd95-4125-9ca3-614e451169eb",
-    task: "Wash Car",
-    completed: false,
-  },
-];
+export const oneTodo = {
+  id: "6a3e2475-dd95-4125-9ca3-614e451169eb",
+  task: "Wash Car",
+  completed: false,
+};
+
+export const newTodo = {
+  id: "e066097f-e433-4fc0-8a3c-d686059b1b0d",
+  task: "Water plants",
+  completed: false,
+};
 
 export const completedTodos = [
   {
