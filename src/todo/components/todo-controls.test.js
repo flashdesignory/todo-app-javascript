@@ -136,4 +136,40 @@ describe("TodoControls", () => {
     toggle.click();
     expect(toggle.checked).toBeFalsy();
   });
+
+  it("should update toggle on active route", () => {
+    document.body.innerHTML = createBodyFragment([...notCompletedTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("active");
+    getTodos.mockReturnValue([...notCompletedTodos]);
+
+    const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
+
+    const toggleContainer = document.querySelector(".todo-toggle-container");
+    const toggle = document.querySelector("#todo-toggle-element");
+
+    update();
+
+    expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
+    expect(toggle.checked).toBeFalsy();
+  });
+
+  it("should update toggle on completed route", () => {
+    document.body.innerHTML = createBodyFragment([...completedTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("completed");
+    getTodos.mockReturnValue([...completedTodos]);
+
+    const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
+
+    const toggleContainer = document.querySelector(".todo-toggle-container");
+    const toggle = document.querySelector("#todo-toggle-element");
+
+    update();
+
+    expect(toggleContainer.classList.contains("hidden")).toBeFalsy();
+    expect(toggle.checked).toBeTruthy();
+  });
 });
