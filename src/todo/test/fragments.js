@@ -27,7 +27,7 @@ export const filtersFragment = `
         <li><a href="#/active" class="">Active</a></li>
         <li><a href="#/completed" class="">Completed</a></li>
     </ul>
-    <button class="todo-clear-button">Clear Completed</button>
+    <button class="todo-clear-button" disabled>Clear Completed</button>
 </div>
 `;
 
@@ -60,7 +60,7 @@ export const bodyFragment = `
             <li><a href="#/active" class="">Active</a></li>
             <li><a href="#/completed" class="">Completed</a></li>
         </ul>
-        <button class="todo-clear-button">Clear Completed</button>
+        <button class="todo-clear-button" disabled>Clear Completed</button>
         </div>
     </main>
     <footer class="todo-footer">

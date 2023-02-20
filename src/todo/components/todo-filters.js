@@ -19,6 +19,7 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
     if (todos.length <= 0) {
       filters.classList.add("hidden");
       statusDisplay.textContent = "";
+      clearButton.disabled = true;
       return;
     }
 

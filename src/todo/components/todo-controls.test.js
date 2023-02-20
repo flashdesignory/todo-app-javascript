@@ -11,7 +11,7 @@ describe("TodoControls", () => {
     jest.resetAllMocks();
   });
 
-  it("should render.", () => {
+  it("should render initial state", () => {
     document.body.innerHTML = createBodyFragment([...emptyTodos]);
     const ref = document.querySelector(".todo-main");
 
@@ -22,8 +22,11 @@ describe("TodoControls", () => {
 
     const form = document.querySelector(".todo-form");
     const toggle = document.querySelector("#todo-toggle-element");
+    const toggleContainer = document.querySelector(".todo-toggle-container");
+
     expect(form).toBeTruthy();
     expect(toggle).toBeTruthy();
+    expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
   });
 
   it("should submit input text", () => {
