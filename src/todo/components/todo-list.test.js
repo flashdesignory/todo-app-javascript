@@ -13,6 +13,10 @@ describe("TodoList", () => {
     jest.resetAllMocks();
   });
 
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it("should render initial state", () => {
     document.body.innerHTML = createBodyFragment([...emptyTodos]);
     const ref = document.querySelector(".todo-main");
@@ -138,5 +142,54 @@ describe("TodoList", () => {
     // after removal
     elements = ref.querySelectorAll(".todo-list-li");
     expect(elements.length).toEqual(0);
+  });
+
+  it("should call onToggle", () => {
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getTodos.mockReturnValue([...mixedTodos]);
+
+    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    const toggleInput = document.querySelector(`#toggle-${mixedTodos[0].id}`);
+    expect(toggleInput).toBeTruthy();
+    toggleInput.click();
+    expect(onToggle).toHaveBeenCalledWith(mixedTodos[0].id);
+  });
+
+  it("should call onDelete", () => {
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getTodos.mockReturnValue([...mixedTodos]);
+
+    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    const item = document.getElementById(`${mixedTodos[0].id}`);
+    const deleteButton = item.querySelector(".todo-item-button");
+    expect(deleteButton).toBeTruthy();
+    deleteButton.click();
+    expect(onDelete).toHaveBeenCalledWith(mixedTodos[0].id);
+  });
+
+  it("should call onUpdate", () => {
+    jest.useFakeTimers();
+
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getTodos.mockReturnValue([...mixedTodos]);
+
+    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    const taskInput = document.querySelector(`#task-${mixedTodos[0].id}`);
+    taskInput.click();
+    jest.advanceTimersByTime(50);
+    taskInput.click();
+    jest.advanceTimersByTime(50);
+    taskInput.textContent = "Clean Car";
+    taskInput.blur();
+    expect(onUpdate).toHaveBeenCalledWith(mixedTodos[0].id, "Clean Car");
   });
 });

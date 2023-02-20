@@ -18,7 +18,7 @@ export const TodoFilters = ({ ref, getTodos, getRoute, onClick }) => {
     // hide filters if there are no todos
     if (todos.length <= 0) {
       filters.classList.add("hidden");
-      statusDisplay.textContent = "";
+      statusDisplay.textContent = "0 items left!";
       clearButton.disabled = true;
       return;
     }

@@ -44,6 +44,30 @@ describe("TodoControls", () => {
     expect(onSubmit).toHaveBeenCalledWith("Do homework.");
   });
 
+  it("should not check toggle with empty todos", () => {
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("");
+    getTodos.mockReturnValue([...emptyTodos]);
+
+    const { update } = TodoControls({ ref, getTodos, getRoute, onSubmit });
+
+    const toggleContainer = document.querySelector(".todo-toggle-container");
+    const toggle = document.querySelector("#todo-toggle-element");
+
+    expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
+    expect(toggle.checked).toBeFalsy();
+
+    update();
+
+    expect(getRoute).toHaveBeenCalledTimes(1);
+    expect(getTodos).toHaveBeenCalledTimes(1);
+
+    expect(toggleContainer.classList.contains("hidden")).toBeTruthy();
+    expect(toggle.checked).toBeFalsy();
+  });
+
   it("should not check toggle with incompleted todos", () => {
     document.body.innerHTML = createBodyFragment([...notCompletedTodos]);
     const ref = document.querySelector(".todo-main");

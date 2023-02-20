@@ -48,6 +48,22 @@ describe("TodoFilters", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it("should update display with empty todos", () => {
+    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    const ref = document.querySelector(".todo-main");
+
+    getRoute.mockReturnValue("");
+    getTodos.mockReturnValue([...emptyTodos]);
+
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+
+    update();
+
+    // check display
+    const statusDisplay = ref.querySelector(".todo-status");
+    expect(statusDisplay.textContent).toEqual("0 items left!");
+  });
+
   it("should update display with one todo", () => {
     document.body.innerHTML = createBodyFragment([{ ...oneTodo }]);
     const ref = document.querySelector(".todo-main");

@@ -58,6 +58,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   // handlers
   const handleChange = () => {
     item.dataset.completed = toggleInput.checked;
+    /* istanbul ignore else */
     if (onToggle) onToggle(todo.id);
   };
 
@@ -74,6 +75,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   const handleBlur = () => {
     taskInput.readOnly = true;
     content.classList.remove("editable-item");
+    /* istanbul ignore else */
     if (onUpdate) onUpdate(todo.id, taskInput.textContent);
   };
 
@@ -84,6 +86,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
         taskInput.blur();
         break;
       case " ":
+        /* istanbul ignore else */
         if (taskInput.readOnly) {
           e.preventDefault();
           handleDoubleClick();
@@ -93,6 +96,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   };
 
   const handleClick = () => {
+    /* istanbul ignore else */
     if (onDelete) onDelete(todo.id);
   };
 
