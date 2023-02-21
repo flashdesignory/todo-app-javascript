@@ -27,7 +27,15 @@ export const useRouter = (callback) => {
     window.addEventListener("load", handleChange);
   };
 
+  /**
+   * Removes listeners
+   */
+  const disableRouter = () => {
+    window.removeEventListener("hashchange", handleChange);
+    window.removeEventListener("load", handleChange);
+  };
+
   const getRoute = () => current.split("/").slice(-1)[0];
 
-  return { initRouter, getRoute };
+  return { initRouter, getRoute, disableRouter };
 };
