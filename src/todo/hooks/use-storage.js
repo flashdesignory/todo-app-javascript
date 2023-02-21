@@ -13,6 +13,7 @@ const defaultNameSpace = "default";
  * @returns Methods to interact with useStorage.
  */
 export const useStorage = (namespace = defaultNameSpace) => {
+  /* istanbul ignore else */
   if (!cache[namespace]) {
     cache[namespace] = {};
   }
@@ -34,6 +35,7 @@ export const useStorage = (namespace = defaultNameSpace) => {
     if (value === undefined) return undefined;
 
     delete cache[namespace][key];
+
     return value;
   };
 
@@ -41,7 +43,7 @@ export const useStorage = (namespace = defaultNameSpace) => {
    * @type {GetValue}
    */
   const getValue = (key) => {
-    const value = cache[namespace][key] || {};
+    const value = cache[namespace][key];
     return value;
   };
 

@@ -1,37 +1,37 @@
 import { useDoubleClick } from "./use-doubleclick.js";
 
 describe("useDoubleClick", () => {
-    beforeEach(() => {
-        jest.useFakeTimers();
-    });
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
 
-    afterEach(() => {
-        jest.useRealTimers();
-    });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
 
-    it("should call callback", () => {
-        const callback = jest.fn();
+  it("should call callback", () => {
+    const callback = jest.fn();
 
-        const callMe = useDoubleClick(callback, 500);
+    const callMe = useDoubleClick(callback, 500);
 
-        callMe();
-        jest.advanceTimersByTime(50);
-        expect(callback).toHaveBeenCalledTimes(0);
+    callMe();
+    jest.advanceTimersByTime(50);
+    expect(callback).toHaveBeenCalledTimes(0);
 
-        callMe();
-        expect(callback).toHaveBeenCalledTimes(1);
-    });
+    callMe();
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
 
-    it("should not call callback", () => {
-        const callback = jest.fn();
+  it("should not call callback", () => {
+    const callback = jest.fn();
 
-        const callMe = useDoubleClick(callback, 500);
+    const callMe = useDoubleClick(callback, 500);
 
-        callMe();
-        jest.advanceTimersByTime(1000);
-        expect(callback).toHaveBeenCalledTimes(0);
+    callMe();
+    jest.advanceTimersByTime(1000);
+    expect(callback).toHaveBeenCalledTimes(0);
 
-        callMe();
-        expect(callback).toHaveBeenCalledTimes(0);
-    });
+    callMe();
+    expect(callback).toHaveBeenCalledTimes(0);
+  });
 });
