@@ -1,7 +1,7 @@
 import { useStorage } from "./use-storage.js";
 
 describe("useStorage", () => {
-  const { setValue, deleteValue, getValue, getAllValues, removeAllValues, toString } = useStorage();
+  const { setValue, deleteValue, getValue, getAllValues, removeAllValues, toString, destroy } = useStorage();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -40,6 +40,14 @@ describe("useStorage", () => {
     setValue("two", 2);
     expect(toString()).toEqual({ one: 1, two: 2 });
     removeAllValues();
+    expect(toString()).toEqual({});
+  });
+
+  it("should delete namespace key", () => {
+    setValue("one", 1);
+    setValue("two", 2);
+    expect(toString()).toEqual({ one: 1, two: 2 });
+    destroy();
     expect(toString()).toEqual({});
   });
 });
