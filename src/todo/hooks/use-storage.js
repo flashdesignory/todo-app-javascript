@@ -68,7 +68,7 @@ export const useStorage = (namespace = defaultNameSpace) => {
 
   const destroy = () => {
     delete cache[namespace];
-  }
+  };
 
   return {
     setValue,
@@ -77,6 +77,6 @@ export const useStorage = (namespace = defaultNameSpace) => {
     getAllValues,
     removeAllValues,
     toString,
-    destroy
+    destroy,
   };
 };
