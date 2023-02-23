@@ -39,7 +39,7 @@ export const TodoApp = ({ ref, data = [] }) => {
   };
 
   const { update: updateControls } = TodoControls({ ref, getTodos, getRoute, onSubmit: handleAddItem });
-  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClick: handleRemoveCompletedItems });
+  const { update: updateFilters } = TodoFilters({ ref, getTodos, getRoute, onClear: handleRemoveCompletedItems });
   const {
     update: updateList,
     remove: removeFromList,
@@ -51,6 +51,10 @@ export const TodoApp = ({ ref, data = [] }) => {
     updateFilters();
     updateList();
   };
+
+  // render initial todos
+  const todos = getTodos();
+  todos.map((todo) => addToList(todo));
 
   // initialize router
   initRouter(update);

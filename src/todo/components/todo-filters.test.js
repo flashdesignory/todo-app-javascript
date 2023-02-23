@@ -5,7 +5,7 @@ import { createBodyFragment } from "../test/fragments.js";
 describe("TodoFilters", () => {
   const getRoute = jest.fn();
   const getTodos = jest.fn();
-  const onClick = jest.fn();
+  const onClear = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -18,7 +18,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...emptyTodos]);
 
-    TodoFilters({ ref, getTodos, getRoute, onClick });
+    TodoFilters({ ref, getTodos, getRoute, onClear });
 
     const filters = ref.querySelector(".todo-filters");
     const statusDisplay = ref.querySelector(".todo-status");
@@ -32,20 +32,20 @@ describe("TodoFilters", () => {
     expect(clearButton.disabled).toBeTruthy();
   });
 
-  it("should call onClick", () => {
+  it("should call onClear", () => {
     document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...mixedTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
     const clearButton = ref.querySelector(".todo-clear-button");
     clearButton.click();
-    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClear).toHaveBeenCalledTimes(1);
   });
 
   it("should update display with empty todos", () => {
@@ -55,7 +55,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...emptyTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
@@ -71,7 +71,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([{ ...oneTodo }]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
@@ -87,7 +87,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...mixedTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
@@ -111,7 +111,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...completedTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
@@ -135,7 +135,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("");
     getTodos.mockReturnValue([...notCompletedTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 
@@ -159,7 +159,7 @@ describe("TodoFilters", () => {
     getRoute.mockReturnValue("active");
     getTodos.mockReturnValue([...mixedTodos]);
 
-    const { update } = TodoFilters({ ref, getTodos, getRoute, onClick });
+    const { update } = TodoFilters({ ref, getTodos, getRoute, onClear });
 
     update();
 

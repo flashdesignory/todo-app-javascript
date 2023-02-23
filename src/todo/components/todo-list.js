@@ -63,9 +63,5 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
     list.prepend(createItem(todo));
   };
 
-  // render initial todos
-  const todos = getTodos();
-  todos.map((todo) => list.append(createItem(todo)));
-
   return { update, reset, remove, add };
 };

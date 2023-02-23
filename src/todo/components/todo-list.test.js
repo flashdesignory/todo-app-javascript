@@ -27,26 +27,8 @@ describe("TodoList", () => {
     expect(list).toBeTruthy();
   });
 
-  it("should render initial todos", () => {
-    // render empty todo list
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
-    const ref = document.querySelector(".todo-main");
-
-    getRoute.mockReturnValue("");
-    // return todos
-    getTodos.mockReturnValue([...mixedTodos]);
-
-    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
-
-    const list = ref.querySelector(".todo-list-ul");
-    expect(list).toBeTruthy();
-
-    const elements = ref.querySelectorAll(".todo-list-li");
-    expect(elements.length).toEqual(3);
-  });
-
   it("should only show active todos on update", () => {
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("active");
@@ -61,7 +43,7 @@ describe("TodoList", () => {
   });
 
   it("should only show completed todos on update", () => {
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("completed");
@@ -76,7 +58,7 @@ describe("TodoList", () => {
   });
 
   it("should remove completed todos from the list", () => {
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("");
@@ -98,7 +80,7 @@ describe("TodoList", () => {
   });
 
   it("should add a todo to the list", () => {
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("");
@@ -120,7 +102,7 @@ describe("TodoList", () => {
   });
 
   it("should empty list on reset", () => {
-    document.body.innerHTML = createBodyFragment([...emptyTodos]);
+    document.body.innerHTML = createBodyFragment([...mixedTodos]);
     const ref = document.querySelector(".todo-main");
 
     getRoute.mockReturnValue("");
@@ -147,7 +129,9 @@ describe("TodoList", () => {
 
     getTodos.mockReturnValue([...mixedTodos]);
 
-    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+    const { add } = TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    add(mixedTodos[0]);
 
     const toggleInput = document.querySelector(`#toggle-${mixedTodos[0].id}`);
     expect(toggleInput).toBeTruthy();
@@ -161,7 +145,9 @@ describe("TodoList", () => {
 
     getTodos.mockReturnValue([...mixedTodos]);
 
-    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+    const { add } = TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    add(mixedTodos[0]);
 
     const item = document.getElementById(`${mixedTodos[0].id}`);
     const deleteButton = item.querySelector(".todo-item-button");
@@ -176,7 +162,9 @@ describe("TodoList", () => {
 
     getTodos.mockReturnValue([...mixedTodos]);
 
-    TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+    const { add } = TodoList({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete });
+
+    add(mixedTodos[0]);
 
     const taskInput = document.querySelector(`#task-${mixedTodos[0].id}`);
     editTodoWithClick(taskInput, "Clean Car");
