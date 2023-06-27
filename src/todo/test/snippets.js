@@ -4,13 +4,13 @@ export const editTodoWithClick = (element, value) => {
   jest.advanceTimersByTime(50);
   element.click();
   jest.advanceTimersByTime(50);
-  element.textContent = value;
+  element.value = value;
   element.blur();
   jest.useRealTimers();
 };
 
 export const editTodoWithKeys = (element, value) => {
   element.dispatchEvent(new KeyboardEvent("keyup", { key: " " }));
-  element.textContent = value;
+  element.value = value;
   element.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }));
 };
