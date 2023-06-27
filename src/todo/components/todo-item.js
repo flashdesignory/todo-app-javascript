@@ -58,13 +58,14 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   content.append(toggleContainer, taskContainer, deleteButton);
 
   // handlers
-  const handleChange = () => {
+  const toggleItem = () => {
     item.dataset.completed = toggleInput.checked;
     /* istanbul ignore else */
     if (onToggle) onToggle(todo.id);
   };
 
-  const handleDoubleClick = () => {
+  const startEdit = () => {
+    if (!taskInput.readOnly) return;
     taskInput.readOnly = false;
     content.classList.add("editable-item");
 
@@ -79,7 +80,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     content.classList.remove("editable-item");
   };
 
-  const handleBlur = () => {
+  const stopEdit = () => {
     if (taskInput.readOnly) return;
 
     resetInput();
@@ -87,7 +88,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     if (taskInput.value === item.dataset.task) return;
 
     if (!taskInput.value.length) {
-      handleClick();
+      removeItem();
       return;
     }
 
@@ -95,24 +96,17 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     if (onUpdate) onUpdate(todo.id, taskInput.value);
   };
 
-  const handleEnter = (e) => {
+  const updateItem = (e) => {
     e.preventDefault();
     taskInput.blur();
   };
 
-  const handleEscape = () => {
+  const cancelEdit = () => {
     taskInput.value = item.dataset.task;
     resetInput();
   };
 
-  const handleSpace = (e) => {
-    if (taskInput.readOnly) {
-      e.preventDefault();
-      handleDoubleClick();
-    }
-  };
-
-  const handleClick = () => {
+  const removeItem = () => {
     /* istanbul ignore else */
     if (onDelete) onDelete(todo.id);
   };
@@ -121,17 +115,17 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     target: taskInput,
     event: "keyup",
     callbacks: {
-      ["Enter"]: handleEnter,
-      ["Escape"]: handleEscape,
-      [" "]: handleSpace,
+      ["Enter"]: updateItem,
+      ["Escape"]: cancelEdit,
+      [" "]: startEdit,
     },
   });
 
   // listeners
-  toggleInput.addEventListener("change", handleChange);
-  taskInput.addEventListener("click", useDoubleClick(handleDoubleClick, 500));
-  taskInput.addEventListener("blur", handleBlur);
-  deleteButton.addEventListener("click", handleClick);
+  toggleInput.addEventListener("change", toggleItem);
+  taskInput.addEventListener("click", useDoubleClick(startEdit, 500));
+  taskInput.addEventListener("blur", stopEdit);
+  deleteButton.addEventListener("click", removeItem);
   keyListener.connect();
 
   return item;
