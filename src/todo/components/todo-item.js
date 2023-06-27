@@ -80,7 +80,17 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   };
 
   const handleBlur = () => {
+    if (taskInput.readOnly) return;
+
     resetInput();
+
+    if (taskInput.value === item.dataset.task) return;
+
+    if (!taskInput.value.length) {
+      handleClick();
+      return;
+    }
+
     /* istanbul ignore else */
     if (onUpdate) onUpdate(todo.id, taskInput.value);
   };
