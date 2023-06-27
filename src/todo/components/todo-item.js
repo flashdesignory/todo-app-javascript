@@ -1,4 +1,5 @@
 import { useDoubleClick } from "../hooks/use-doubleclick.js";
+import { useKeyListener } from "../hooks/use-keylisteners.js";
 
 export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   // item setup
@@ -7,6 +8,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   item.role = "listitem";
   item.id = `${todo.id}`;
   item.dataset.completed = todo.completed;
+  item.dataset.task = todo.task;
 
   const content = document.createElement("div");
   content.classList.add("todo-item");
@@ -72,26 +74,31 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     taskInput.focus();
   };
 
-  const handleBlur = () => {
+  const resetInput = () => {
     taskInput.readOnly = true;
     content.classList.remove("editable-item");
-    /* istanbul ignore else */
-    if (onUpdate) onUpdate(todo.id, taskInput.textContent);
   };
 
-  const handleKeyUp = (e) => {
-    switch (e.key) {
-      case "Enter":
-        e.preventDefault();
-        taskInput.blur();
-        break;
-      case " ":
-        /* istanbul ignore else */
-        if (taskInput.readOnly) {
-          e.preventDefault();
-          handleDoubleClick();
-        }
-        break;
+  const handleBlur = () => {
+    resetInput();
+    /* istanbul ignore else */
+    if (onUpdate) onUpdate(todo.id, taskInput.value);
+  };
+
+  const handleEnter = (e) => {
+    e.preventDefault();
+    taskInput.blur();
+  };
+
+  const handleEscape = () => {
+    taskInput.value = item.dataset.task;
+    resetInput();
+  };
+
+  const handleSpace = (e) => {
+    if (taskInput.readOnly) {
+      e.preventDefault();
+      handleDoubleClick();
     }
   };
 
@@ -100,12 +107,22 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
     if (onDelete) onDelete(todo.id);
   };
 
+  const keyListener = useKeyListener({
+    target: taskInput,
+    event: "keyup",
+    callbacks: {
+      ["Enter"]: handleEnter,
+      ["Escape"]: handleEscape,
+      [" "]: handleSpace,
+    },
+  });
+
   // listeners
   toggleInput.addEventListener("change", handleChange);
   taskInput.addEventListener("click", useDoubleClick(handleDoubleClick, 500));
   taskInput.addEventListener("blur", handleBlur);
-  taskInput.addEventListener("keyup", handleKeyUp);
   deleteButton.addEventListener("click", handleClick);
+  keyListener.connect();
 
   return item;
 };

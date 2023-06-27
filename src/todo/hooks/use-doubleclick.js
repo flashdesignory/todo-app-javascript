@@ -6,15 +6,13 @@
  * @param {number} delay
  * @returns
  */
-export const useDoubleClick = (fn, delay) => {
+export function useDoubleClick(fn, delay) {
   let last = 0;
   return function (...args) {
     const now = new Date().getTime();
     const difference = now - last;
-    if (difference < delay && difference > 0) {
-      fn.apply(this, args);
-    }
+    if (difference < delay && difference > 0) fn.apply(this, args);
 
     last = now;
   };
-};
+}

@@ -1,12 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Todo, Partial, Storage } from "../types/types.js";
-
-/**
- * Function that returns a unique string.
- *
- * @returns {string} A unique id.
- */
-const uuid = () => crypto.randomUUID();
+import { nanoid } from "../utils/ids.js";
 
 /**
  * Function that creates a todo, based on the task input.
@@ -15,7 +9,7 @@ const uuid = () => crypto.randomUUID();
  * @returns {Todo} A Todo item.
  */
 const create = (task) => ({
-  id: uuid(),
+  id: nanoid(),
   task,
   completed: false,
 });
@@ -69,6 +63,7 @@ export const useApi = (storage, initialTodos = []) => {
 
     todo = update(todo, { task });
     storage.setValue(todo.id, todo);
+
     return todo;
   };
 
