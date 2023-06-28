@@ -14,3 +14,8 @@ export const editTodoWithKeys = (element, value) => {
   element.value = value;
   element.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }));
 };
+
+export const setTodoValueWithKeys = (element, value) => {
+  element.dispatchEvent(new KeyboardEvent("keyup", { key: " " }));
+  element.value = value;
+};

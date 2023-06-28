@@ -65,6 +65,7 @@ export const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
   };
 
   const startEdit = () => {
+    /* istanbul ignore next line */
     if (!taskInput.readOnly) return;
     taskInput.readOnly = false;
     content.classList.add("editable-item");

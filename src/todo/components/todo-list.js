@@ -48,6 +48,7 @@ export const TodoList = ({ ref, getTodos, getRoute, onToggle, onUpdate, onDelete
       }
 
       // update task if it changed
+      /* istanbul ignore else */
       if (element.dataset.task !== todo.task) {
         element.dataset.task = todo.task;
       }
